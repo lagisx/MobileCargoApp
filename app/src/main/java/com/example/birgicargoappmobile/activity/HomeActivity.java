@@ -1,5 +1,6 @@
 package com.example.birgicargoappmobile.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         cargoRecyclerView.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/")
+                .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/rest/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         cargoApi = retrofit.create(SupabaseCargoApi.class);
@@ -64,14 +65,16 @@ public class HomeActivity extends AppCompatActivity {
                 loadMyCargo();
             } else if (id == R.id.nav_all_cargo) {
                 loadAllCargo();
+            } else if (id == R.id.nav_add_cargo) {
+                Intent intent = new Intent(HomeActivity.this, AddCargoActivity.class);
+                intent.putExtra("user_id", currentUserId);
+                startActivityForResult(intent, 1);
             }
             drawerLayout.closeDrawers();
             return true;
         });
-
         loadAllCargo();
     }
-
     private void loadAllCargo() {
         cargoApi.getAllCargo().enqueue(new Callback<List<Cargo>>() {
             @Override
@@ -91,21 +94,36 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<Cargo>> call, Throwable t) {}
+            public void onFailure(Call<List<Cargo>> call, Throwable t) {
+                Log.e("CARGO", "Error loading all cargo: " + t.getMessage());
+            }
         });
     }
-
     private void loadMyCargo() {
         String filter = "eq." + currentUserId;
         cargoApi.getCargoByCustomer(filter).enqueue(new Callback<List<Cargo>>() {
             @Override
             public void onResponse(Call<List<Cargo>> call, Response<List<Cargo>> response) {
+                Log.d("CARGO", "My cargo code=" + response.code());
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.d("CARGO", "My cargo size=" + response.body().size());
                     adapter.setCargoList(response.body());
                 }
             }
             @Override
-            public void onFailure(Call<List<Cargo>> call, Throwable t) {}
+            public void onFailure(Call<List<Cargo>> call, Throwable t) {
+                Log.e("CARGO", "Error loading my cargo: " + t.getMessage());
+            }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            loadAllCargo();
+            loadMyCargo();
+            Log.d("CARGO", "Lists refreshed after adding cargo");
+        }
     }
 }

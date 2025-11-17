@@ -63,4 +63,20 @@ public class Cargo {
     public String getBargainOrNoBargain() { return bargainOrNoBargain; }
     public String getContactPhone() { return contactPhone; }
     public int getCustomerId() { return customerId; }
+
+    // Setters
+    public void setVehicleType(String vehicleType) { this.vehicleType = vehicleType; }
+    public void setWeight(double weight) { this.weight = weight; }
+    public void setVolume(double volume) { this.volume = volume; }
+    public void setProduct(String product) { this.product = product; }
+    public void setFromLocation(String fromLocation) { this.fromLocation = fromLocation; }
+    public void setToLocation(String toLocation) { this.toLocation = toLocation; }
+    public void setLoadingType(String loadingType) { this.loadingType = loadingType; }
+    public void setLoadingDetails(String loadingDetails) { this.loadingDetails = loadingDetails; }
+    public void setDates(String dates) { this.dates = dates; }
+    public void setPriceByCard(double priceByCard) { this.priceByCard = priceByCard; }
+    public void setPriceWithVat(double priceWithVat) { this.priceWithVat = priceWithVat; }
+    public void setBargainOrNoBargain(String bargainOrNoBargain) { this.bargainOrNoBargain = bargainOrNoBargain; }
+    public void setContactPhone(String contactPhone) { this.contactPhone = contactPhone; }
+    public void setCustomerId(int customerId) { this.customerId = customerId; }
 }

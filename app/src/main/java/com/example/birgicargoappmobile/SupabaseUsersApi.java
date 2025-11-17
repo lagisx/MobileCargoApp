@@ -16,7 +16,7 @@ public interface SupabaseUsersApi {
             "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZHdsdGRvYXl1aHVpa3p5Y29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyOTA5NDIsImV4cCI6MjA3ODg2Njk0Mn0.P_h0_6hKlBHYEIGr3smGDza-5tSrvZIxz6yAGh05YaY",
             "Content-Type: application/json"
     })
-    @GET("rest/v1/users?select=*")
+    @GET("users")
     Call<List<User>> getUserByLogin(@Query("login") String loginEq);
 
     @Headers({
@@ -24,6 +24,14 @@ public interface SupabaseUsersApi {
             "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZHdsdGRvYXl1aHVpa3p5Y29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyOTA5NDIsImV4cCI6MjA3ODg2Njk0Mn0.P_h0_6hKlBHYEIGr3smGDza-5tSrvZIxz6yAGh05YaY",
             "Content-Type: application/json"
     })
-    @POST("rest/v1/users")
+    @GET("users")
+    Call<List<User>> getUserById(@Query("id") String userId);
+
+    @Headers({
+            "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZHdsdGRvYXl1aHVpa3p5Y29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyOTA5NDIsImV4cCI6MjA3ODg2Njk0Mn0.P_h0_6hKlBHYEIGr3smGDza-5tSrvZIxz6yAGh05YaY",
+            "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZHdsdGRvYXl1aHVpa3p5Y29kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyOTA5NDIsImV4cCI6MjA3ODg2Njk0Mn0.P_h0_6hKlBHYEIGr3smGDza-5tSrvZIxz6yAGh05YaY",
+            "Content-Type: application/json"
+    })
+    @POST("users")
     Call<Void> createUser(@Body User user);
 }

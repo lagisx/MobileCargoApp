@@ -7,5 +7,8 @@
         <item
             android:id="@+id/nav_all_cargo"
             android:title="Все грузы"/>
+        <item
+            android:id="@+id/nav_add_cargo"
+            android:title="Добавить груз"/>
     </group>
 </menu>

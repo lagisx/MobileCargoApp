@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         loginLink = findViewById(R.id.login_link);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/")
+                .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/rest/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         supabaseUsersApi = retrofit.create(SupabaseUsersApi.class);
