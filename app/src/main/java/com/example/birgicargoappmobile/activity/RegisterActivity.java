@@ -10,15 +10,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.birgicargoappmobile.R;
+import com.example.birgicargoappmobile.SupabaseUsersApi;
+import com.example.birgicargoappmobile.model.User;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText fullNameInput;
-    private EditText emailInput;
-    private EditText phoneInput;
-    private EditText passwordInput;
+    private EditText fullNameInput, emailInput, phoneInput, passwordInput;
     private Button registerButton;
     private TextView loginLink;
+    private SupabaseUsersApi supabaseUsersApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +41,74 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.register_button);
         loginLink = findViewById(R.id.login_link);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        supabaseUsersApi = retrofit.create(SupabaseUsersApi.class);
+
         registerButton.setOnClickListener(v -> handleRegister());
         loginLink.setOnClickListener(v -> goToLogin());
     }
 
     private void handleRegister() {
-        String name = fullNameInput.getText().toString().trim();
+        String login = fullNameInput.getText().toString().trim().toLowerCase();
         String email = emailInput.getText().toString().trim();
         String phone = phoneInput.getText().toString().trim();
-        String pass = passwordInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
-        if (name.isEmpty()) {
-            Toast.makeText(this, "Введите логин", Toast.LENGTH_SHORT).show();
+        if (login.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (email.isEmpty() || !email.contains("@")) {
-            Toast.makeText(this, "Введите корректный Email", Toast.LENGTH_SHORT).show();
+        if (!email.contains("@")) {
+            Toast.makeText(this, "Введите корректный Email!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (phone.isEmpty() || phone.length() < 10) {
-            Toast.makeText(this, "Введите корректный номер", Toast.LENGTH_SHORT).show();
+        if (password.length() < 8) {
+            Toast.makeText(this, "Пароль должен быть не менее 8 символов!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (pass.length() < 8) {
-            Toast.makeText(this, "Пароль должен быть не менее 8 символов", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Проверяем, существует ли уже логин
+        supabaseUsersApi.getUserByLogin("eq." + login).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Логин уже используется", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Создаём нового пользователя с status = false
+                    User newUser = new User(0, login, email, phone, password,
+                            LocalDateTime.now().toString(), false);
 
-        Toast.makeText(this, "Аккаунт создан!", Toast.LENGTH_LONG).show();
+                    supabaseUsersApi.createUser(newUser).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() == 201) { // Created
+                                Toast.makeText(RegisterActivity.this, "Аккаунт создан успешно!", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Ошибка регистрации! Код: " + response.code(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-        finish();
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(RegisterActivity.this, "Ошибка подключения: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Ошибка подключения: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void goToLogin() {
