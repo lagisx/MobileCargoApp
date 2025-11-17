@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Заголовок страницы -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Создать аккаунт"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
+            android:gravity="center" />
+
+        <!-- Подзаголовок -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Присоединитесь к BirgiCargos"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:layout_marginBottom="32dp"
+            android:gravity="center" />
+
+        <!-- Полное имя -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Логин"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/full_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Введите имя"
+            android:padding="12dp"
+            android:inputType="text"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email адрес"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="example@mail.com"
+            android:padding="12dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+        <!-- Телефон -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Номер телефона"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="+7 (999) 999-99-99"
+            android:padding="12dp"
+            android:inputType="phone"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+        <!-- Пароль -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пароль"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Минимум 8 символов"
+            android:padding="12dp"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+        <!-- Кнопка регистрации -->
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Зарегистрироваться"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Разделитель -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="или"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+        </LinearLayout>
+
+        <!-- Вход существующего пользователя -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Уже есть аккаунт? "
+                android:textSize="14sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/login_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Войти"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

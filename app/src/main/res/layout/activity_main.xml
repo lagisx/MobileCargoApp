@@ -27,7 +27,9 @@
         android:inputType="text"
         android:background="@drawable/edit_text_bg"
         android:layout_marginBottom="15dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray" />
 
     <!-- Пароль -->
     <EditText
@@ -39,7 +41,9 @@
         android:inputType="textPassword"
         android:background="@drawable/edit_text_bg"
         android:layout_marginBottom="20dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray" />
 
     <!-- Кнопка авторизации -->
     <Button
@@ -72,6 +76,7 @@
         android:text="Нет аккаунта? Зарегистрируйтесь"
         android:textSize="14sp"
         android:textColor="@color/blue"
-        android:textDecoration="underline" />
+        android:clickable="true"
+        android:focusable="true" />
 
 </LinearLayout>
