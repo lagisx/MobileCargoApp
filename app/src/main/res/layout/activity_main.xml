@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:gravity="center">
 
+    <!-- Заголовок -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="BirgiCargos"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="40dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Логин -->
+    <EditText
+        android:id="@+id/login_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Логин"
+        android:padding="12dp"
+        android:inputType="text"
+        android:background="@drawable/edit_text_bg"
+        android:layout_marginBottom="15dp"
+        android:textSize="16sp" />
+
+    <!-- Пароль -->
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Пароль"
+        android:padding="12dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edit_text_bg"
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp" />
+
+    <!-- Кнопка авторизации -->
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Авторизация"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/white"
+        android:layout_marginBottom="15dp" />
+
+    <!-- Кнопка входа как гост -->
+    <Button
+        android:id="@+id/guest_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Войти как гост"
+        android:textSize="16sp"
+        android:background="@drawable/button_secondary_bg"
+        android:textColor="@color/black"
+        android:layout_marginBottom="30dp" />
+
+    <!-- Ссылка на регистрацию -->
+    <TextView
+        android:id="@+id/register_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Нет аккаунта? Зарегистрируйтесь"
+        android:textSize="14sp"
+        android:textColor="@color/blue"
+        android:textDecoration="underline" />
+
+</LinearLayout>
