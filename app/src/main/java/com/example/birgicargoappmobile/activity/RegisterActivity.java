@@ -23,7 +23,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
-
     private EditText fullNameInput, emailInput, phoneInput, passwordInput;
     private Button registerButton;
     private TextView loginLink;
@@ -45,13 +44,11 @@ public class RegisterActivity extends AppCompatActivity {
                 .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         supabaseUsersApi = retrofit.create(SupabaseUsersApi.class);
 
         registerButton.setOnClickListener(v -> handleRegister());
         loginLink.setOnClickListener(v -> goToLogin());
     }
-
     private void handleRegister() {
         String login = fullNameInput.getText().toString().trim().toLowerCase();
         String email = emailInput.getText().toString().trim();
@@ -62,32 +59,27 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!email.contains("@")) {
             Toast.makeText(this, "Введите корректный Email!", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (password.length() < 8) {
             Toast.makeText(this, "Пароль должен быть не менее 8 символов!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Проверяем, существует ли уже логин
         supabaseUsersApi.getUserByLogin("eq." + login).enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Логин уже используется", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Создаём нового пользователя с status = false
                     User newUser = new User(0, login, email, phone, password,
                             LocalDateTime.now().toString(), false);
 
                     supabaseUsersApi.createUser(newUser).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.code() == 201) { // Created
+                            if (response.code() == 201) {
                                 Toast.makeText(RegisterActivity.this, "Аккаунт создан успешно!", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                 finish();

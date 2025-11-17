@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Добро пожаловать, " + login + "!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        intent.putExtra("username", login);
+                        intent.putExtra("user_id", user.getId());
                         startActivity(intent);
 
                         finish();

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_cargo"
+            android:title="Мои грузы"/>
+        <item
+            android:id="@+id/nav_all_cargo"
+            android:title="Все грузы"/>
+    </group>
+</menu>
