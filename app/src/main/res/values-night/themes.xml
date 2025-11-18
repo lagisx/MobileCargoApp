@@ -1,7 +1,25 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BirgiCargoAppMobile" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1396AA</color>
+    <color name="primary_dark">#101C22</color>
+    <color name="accent">#47B1D6</color>
+
+    <color name="text_primary">#F4F7FA</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="hint_text">#7EA5B3</color>
+    <color name="link_blue">#4EC3E6</color>
+
+    <color name="white">#292C2E</color>
+    <color name="black">#131417</color>
+    <color name="gray">#424242</color>
+    <color name="blue">#42A5F5</color>
+
+    <color name="background">#181A1B</color>
+    <color name="title_bar">#F4F7FA</color>
+    <color name="field_bg">#232B2E</color>
+    <color name="card_shadow">#232B2E</color>
+    <color name="app_bg">#181A1B</color>
+    <color name="surface">#232B2E</color>
+    <color name="field_border">#223D42</color>
+    <color name="primary_text">#F4F7FA</color>
 </resources>

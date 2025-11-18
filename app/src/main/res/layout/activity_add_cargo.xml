@@ -1,139 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <LinearLayout
-        android:orientation="vertical"
+    android:background="@color/app_bg"
+    android:fitsSystemWindows="true">
+    >
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:title="Добавить новый груз"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
-        <TextView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="24dp"
+        android:clipToPadding="false"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Добавить новый груз"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#1f2121"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp">
 
-        <EditText
-            android:id="@+id/et_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Название товара *"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="18dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="@color/surface">
 
-        <EditText
-            android:id="@+id/et_vehicle_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Тип ТС"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp">
 
-        <EditText
-            android:id="@+id/et_weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Вес (т)"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Название товара *"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_volume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Объём (м³)"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_vehicle_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Тип ТС"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_from_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Откуда *"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp">
 
-        <EditText
-            android:id="@+id/et_to_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Куда *"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                        <EditText
+                            android:id="@+id/et_weight"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="54dp"
+                            android:background="@drawable/bg_field"
+                            android:hint="Вес (т)"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="8dp"
+                            android:textColor="@color/primary_text"
+                            android:textSize="16sp"
+                            android:textColorHint="#99AEC5"
+                            android:layout_marginEnd="6dp"/>
 
-        <EditText
-            android:id="@+id/et_loading_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Тип погрузки"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                        <EditText
+                            android:id="@+id/et_volume"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="54dp"
+                            android:background="@drawable/bg_field"
+                            android:hint="Объём (м³)"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="16dp"
+                            android:textColor="@color/primary_text"
+                            android:textSize="16sp"
+                            android:textColorHint="#99AEC5"/>
+                    </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_loading_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Детали погрузки"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_from_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Откуда *"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_dates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Даты"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_to_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Куда *"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_price_by_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Цена по карте"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_loading_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Тип погрузки"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_price_with_vat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Цена НДС"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_loading_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Детали погрузки"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <EditText
-            android:id="@+id/et_bargain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Торг/без торга"
-            android:inputType="text"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"/>
+                    <EditText
+                        android:id="@+id/et_dates"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Дата"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
 
-        <Button
-            android:id="@+id/btn_add_cargo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Добавить груз"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:backgroundTint="#2180a7"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
-</ScrollView>
+                    <EditText
+                        android:id="@+id/et_price_by_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Цена по карте"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
+
+                    <EditText
+                        android:id="@+id/et_price_with_vat"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Цена с НДС"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="10dp"/>
+
+                    <EditText
+                        android:id="@+id/et_bargain"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_field"
+                        android:hint="Торг/без торга"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/primary_text"
+                        android:textSize="16sp"
+                        android:textColorHint="#99AEC5"
+                        android:layout_marginBottom="14dp"/>
+
+                    <Button
+                        android:id="@+id/btn_add_cargo"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:text="ДОБАВИТЬ ГРУЗ"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bg_btn_primary"
+                        android:fontFamily="sans-serif-medium"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

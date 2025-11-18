@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
+
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
     <color name="white">#FFFFFF</color>
-    <color name="blue">#3B82F6</color>
-    <color name="gray">#F5F5F5</color>
-    <color name="purple_200">#BB86FC</color>
-    <color name="purple_500">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
-    <color name="teal_200">#03DAC5</color>
-    <color name="teal_700">#018786</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="blue">#2196F3</color>
+
+    <color name="background">#FFFFFF</color>
+    <color name="title_bar">#1f2121</color>
+    <color name="colorAccent">#2180a7</color>
+    <color name="hint_text">#868686</color>
+    <color name="primary_dark">#143842</color>
+    <color name="accent">#7DAEC5</color>
+    <color name="field_bg">#F5F7FA</color>
+    <color name="card_shadow">#E5EEF3</color>
+    <color name="link_blue">#2196AA</color>
+    <color name="app_bg">#F6FAFB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="primary">#2196AA</color>
+    <color name="field_border">#D9E7F2</color>
+    <color name="primary_text">#143842</color>
 
 </resources>

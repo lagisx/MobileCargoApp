@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BirgiCargoAppMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorSecondary">@color/accent</item>
+    </style>
+
+    <style name="NavigationMenuItemStyle">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+</resources>

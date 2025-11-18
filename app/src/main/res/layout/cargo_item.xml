@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Заголовок: Товар и ID -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -42,14 +41,12 @@
                 android:visibility="invisible" />
         </LinearLayout>
 
-        <!-- Полоса разделителя -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#e8e8e8"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Описание (ТС, вес, объём) -->
         <TextView
             android:id="@+id/cargo_description"
             android:layout_width="match_parent"
@@ -59,7 +56,6 @@
             android:layout_marginBottom="10dp"
             android:lineSpacingExtra="4dp"/>
 
-        <!-- Откуда/Куда с иконками -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -112,7 +108,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Дата с иконкой -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -135,7 +130,6 @@
                 android:textColor="#626c7c"/>
         </LinearLayout>
 
-        <!-- Номер телефона владельца -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -159,7 +153,6 @@
                 android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Цена -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -186,6 +179,16 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#2180a7"/>
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Удалить"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorAccent"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="end"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

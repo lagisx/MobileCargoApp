@@ -2,7 +2,7 @@ package com.example.birgicargoappmobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +10,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.navigation.NavigationView;
+
 import com.example.birgicargoappmobile.R;
 import com.example.birgicargoappmobile.model.Cargo;
 import com.example.birgicargoappmobile.adapter.CargoAdapter;
 import com.example.birgicargoappmobile.SupabaseCargoApi;
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.*;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     private CargoAdapter adapter;
     private List<Cargo> cargoList = new ArrayList<>();
     private int currentUserId;
+    private CargoAdapter.OnCargoDeleteListener deleteListener;
+
+    private boolean showingMyCargo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +54,8 @@ public class HomeActivity extends AppCompatActivity {
 
         cargoRecyclerView = findViewById(R.id.cargo_recycler_view);
         cargoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CargoAdapter(cargoList);
-        cargoRecyclerView.setAdapter(adapter);
+
+        currentUserId = getIntent().getIntExtra("user_id", -1);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/rest/v1/")
@@ -57,7 +63,21 @@ public class HomeActivity extends AppCompatActivity {
                 .build();
         cargoApi = retrofit.create(SupabaseCargoApi.class);
 
-        currentUserId = getIntent().getIntExtra("user_id", -1);
+        // Global deleteListener
+        deleteListener = cargo -> {
+            String queryId = "eq." + cargo.getId();
+            cargoApi.deleteCargoById(queryId).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Toast.makeText(HomeActivity.this, "Груз удалён", Toast.LENGTH_SHORT).show();
+                    loadMyCargo();
+                }
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(HomeActivity.this, "Ошибка удаления", Toast.LENGTH_SHORT).show();
+                }
+            });
+        };
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -66,53 +86,48 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_all_cargo) {
                 loadAllCargo();
             } else if (id == R.id.nav_add_cargo) {
-                Intent intent = new Intent(HomeActivity.this, AddCargoActivity.class);
+                Intent intent = new Intent(HomeActivity.this, com.example.birgicargoappmobile.activity.AddCargoActivity.class);
                 intent.putExtra("user_id", currentUserId);
                 startActivityForResult(intent, 1);
             }
             drawerLayout.closeDrawers();
             return true;
         });
-        loadAllCargo();
+
+        loadAllCargo();  // Стартуем с "все грузы"
     }
+
     private void loadAllCargo() {
+        showingMyCargo = false;
         cargoApi.getAllCargo().enqueue(new Callback<List<Cargo>>() {
             @Override
             public void onResponse(Call<List<Cargo>> call, Response<List<Cargo>> response) {
-                Log.d("CARGO", "code=" + response.code());
-                if (response.body() != null) {
-                    Log.d("CARGO", "size=" + response.body().size());
-                    for (Cargo cargo : response.body()) {
-                        Log.d("CARGO", "product=" + cargo.getProduct() + " id=" + cargo.getId());
-                    }
-                } else {
-                    Log.d("CARGO", "response body is null");
-                }
-                // adapter update
                 if (response.isSuccessful() && response.body() != null) {
-                    adapter.setCargoList(response.body());
+                    adapter = new CargoAdapter(response.body(), currentUserId, deleteListener, false);
+                    cargoRecyclerView.setAdapter(adapter);
                 }
             }
             @Override
             public void onFailure(Call<List<Cargo>> call, Throwable t) {
-                Log.e("CARGO", "Error loading all cargo: " + t.getMessage());
+                Toast.makeText(HomeActivity.this, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     private void loadMyCargo() {
+        showingMyCargo = true;
         String filter = "eq." + currentUserId;
         cargoApi.getCargoByCustomer(filter).enqueue(new Callback<List<Cargo>>() {
             @Override
             public void onResponse(Call<List<Cargo>> call, Response<List<Cargo>> response) {
-                Log.d("CARGO", "My cargo code=" + response.code());
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("CARGO", "My cargo size=" + response.body().size());
-                    adapter.setCargoList(response.body());
+                    adapter = new CargoAdapter(response.body(), currentUserId, deleteListener, true);
+                    cargoRecyclerView.setAdapter(adapter);
                 }
             }
             @Override
             public void onFailure(Call<List<Cargo>> call, Throwable t) {
-                Log.e("CARGO", "Error loading my cargo: " + t.getMessage());
+                Toast.makeText(HomeActivity.this, "Ошибка загрузки моих грузов", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -121,9 +136,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            loadAllCargo();
-            loadMyCargo();
-            Log.d("CARGO", "Lists refreshed after adding cargo");
+            if (showingMyCargo) {
+                loadMyCargo();
+            } else {
+                loadAllCargo();
+            }
         }
     }
 }

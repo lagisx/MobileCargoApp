@@ -3,6 +3,7 @@ package com.example.birgicargoappmobile.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +14,19 @@ import java.util.List;
 public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHolder> {
 
     private List<Cargo> cargoList;
+    private int currentUserId;
+    private OnCargoDeleteListener deleteListener;
+    private boolean showDeleteButton;
 
-    public CargoAdapter(List<Cargo> cargoList) {
+    public interface OnCargoDeleteListener {
+        void onDeleteClick(Cargo cargo);
+    }
+
+    public CargoAdapter(List<Cargo> cargoList, int currentUserId, OnCargoDeleteListener listener, boolean showDeleteButton) {
         this.cargoList = cargoList;
+        this.currentUserId = currentUserId;
+        this.deleteListener = listener;
+        this.showDeleteButton = showDeleteButton;
     }
 
     @NonNull
@@ -28,8 +39,6 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
     @Override
     public void onBindViewHolder(@NonNull CargoViewHolder holder, int position) {
         Cargo cargo = cargoList.get(position);
-
-        // Заполняем все поля карточки
         holder.title.setText(cargo.getProduct());
         holder.id.setText("#" + cargo.getId());
         holder.description.setText(
@@ -39,10 +48,17 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
         holder.from.setText(cargo.getFromLocation());
         holder.to.setText(cargo.getToLocation());
         holder.date.setText(cargo.getDates());
-
-        // ВАЖНО: заполняем телефон и цену
         holder.phone.setText(cargo.getContactPhone());
         holder.price.setText("₽ " + String.format("%.0f", cargo.getPriceByCard()));
+
+        if (showDeleteButton && cargo.getCustomerId() == currentUserId) {
+            holder.btnDelete.setVisibility(View.VISIBLE);
+            holder.btnDelete.setOnClickListener(v -> {
+                if (deleteListener != null) deleteListener.onDeleteClick(cargo);
+            });
+        } else {
+            holder.btnDelete.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -52,7 +68,7 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
 
     static class CargoViewHolder extends RecyclerView.ViewHolder {
         TextView title, id, description, from, to, date, phone, price;
-
+        Button btnDelete;
         CargoViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.cargo_title);
@@ -61,10 +77,9 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
             from = itemView.findViewById(R.id.cargo_from);
             to = itemView.findViewById(R.id.cargo_to);
             date = itemView.findViewById(R.id.cargo_date);
-
-            // ВАЖНО: присваиваем переменным поля из layout
             phone = itemView.findViewById(R.id.cargo_phone);
             price = itemView.findViewById(R.id.cargo_price);
+            btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }
 

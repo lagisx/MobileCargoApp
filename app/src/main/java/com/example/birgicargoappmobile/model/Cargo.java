@@ -3,43 +3,57 @@ package com.example.birgicargoappmobile.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Cargo {
-    private int id;
+
+
+    private Integer id;
 
     @SerializedName("ТипТС")
     private String vehicleType;
 
+
     @SerializedName("Вес")
     private double weight;
+
 
     @SerializedName("Объем")
     private double volume;
 
+
     @SerializedName("Товар")
     private String product;
+
 
     @SerializedName("Откуда")
     private String fromLocation;
 
+
     @SerializedName("Куда")
     private String toLocation;
+
 
     @SerializedName("ТипПогрузки")
     private String loadingType;
 
+
     @SerializedName("ДеталиПогрузки")
     private String loadingDetails;
+
 
     @SerializedName("Даты")
     private String dates;
 
+
     @SerializedName("ЦенаПоКарте")
     private double priceByCard;
+
 
     @SerializedName("ЦенаНДС")
     private double priceWithVat;
 
-    @SerializedName("Торг/без_торга")
+
+    @SerializedName("Торг_без_торга")
     private String bargainOrNoBargain;
+
 
     @SerializedName("КонтактныйТелефон")
     private String contactPhone;
@@ -48,7 +62,7 @@ public class Cargo {
     private int customerId;
 
     // Getters
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getVehicleType() { return vehicleType; }
     public double getWeight() { return weight; }
     public double getVolume() { return volume; }
