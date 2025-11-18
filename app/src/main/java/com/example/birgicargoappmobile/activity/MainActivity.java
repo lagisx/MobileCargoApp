@@ -114,9 +114,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleGuestLogin() {
         Toast.makeText(this, "Вход как гость", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, GuestViewActivity.class);
+        startActivity(intent);
     }
     private void goToRegister() {
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
+
 }

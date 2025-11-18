@@ -30,6 +30,9 @@
         <activity
             android:name=".activity.AddCargoActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.GuestViewActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -3,12 +3,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_cargo"
-            android:title="Мои грузы"/>
+            android:title="Мои грузы" />
         <item
             android:id="@+id/nav_all_cargo"
-            android:title="Все грузы"/>
+            android:title="Все грузы" />
         <item
             android:id="@+id/nav_add_cargo"
-            android:title="Добавить груз"/>
+            android:title="Добавить груз" />
     </group>
+
 </menu>

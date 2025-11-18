@@ -73,8 +73,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Логин уже используется", Toast.LENGTH_SHORT).show();
                 } else {
-                    User newUser = new User(0, login, email, phone, password,
-                            LocalDateTime.now().toString(), false);
+                    User newUser = new User();
+                    newUser.setLogin(login);
+                    newUser.setEmail(email);
+                    newUser.setPhone(phone);
+                    newUser.setPassword(password);
 
                     supabaseUsersApi.createUser(newUser).enqueue(new Callback<Void>() {
                         @Override

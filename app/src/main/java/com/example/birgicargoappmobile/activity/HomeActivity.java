@@ -2,29 +2,26 @@ package com.example.birgicargoappmobile.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.birgicargoappmobile.R;
 import com.example.birgicargoappmobile.model.Cargo;
 import com.example.birgicargoappmobile.adapter.CargoAdapter;
 import com.example.birgicargoappmobile.SupabaseCargoApi;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.*;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends AppCompatActivity {
-
     private DrawerLayout drawerLayout;
     private RecyclerView cargoRecyclerView;
     private SupabaseCargoApi cargoApi;
@@ -32,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
     private List<Cargo> cargoList = new ArrayList<>();
     private int currentUserId;
     private CargoAdapter.OnCargoDeleteListener deleteListener;
-
     private boolean showingMyCargo = false;
 
     @Override
@@ -61,9 +57,9 @@ public class HomeActivity extends AppCompatActivity {
                 .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/rest/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         cargoApi = retrofit.create(SupabaseCargoApi.class);
 
-        // Global deleteListener
         deleteListener = cargo -> {
             String queryId = "eq." + cargo.getId();
             cargoApi.deleteCargoById(queryId).enqueue(new Callback<Void>() {
@@ -72,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                     Toast.makeText(HomeActivity.this, "Груз удалён", Toast.LENGTH_SHORT).show();
                     loadMyCargo();
                 }
+
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     Toast.makeText(HomeActivity.this, "Ошибка удаления", Toast.LENGTH_SHORT).show();
@@ -86,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_all_cargo) {
                 loadAllCargo();
             } else if (id == R.id.nav_add_cargo) {
-                Intent intent = new Intent(HomeActivity.this, com.example.birgicargoappmobile.activity.AddCargoActivity.class);
+                Intent intent = new Intent(HomeActivity.this, AddCargoActivity.class);
                 intent.putExtra("user_id", currentUserId);
                 startActivityForResult(intent, 1);
             }
@@ -94,7 +91,17 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
-        loadAllCargo();  // Стартуем с "все грузы"
+        View headerView = navigationView.getHeaderView(0);
+        Button btnLogout = headerView.findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(v -> {
+            Toast.makeText(HomeActivity.this, "Вы вышли из системы", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
+        loadAllCargo();
     }
 
     private void loadAllCargo() {
@@ -107,6 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                     cargoRecyclerView.setAdapter(adapter);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Cargo>> call, Throwable t) {
                 Toast.makeText(HomeActivity.this, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
@@ -125,6 +133,7 @@ public class HomeActivity extends AppCompatActivity {
                     cargoRecyclerView.setAdapter(adapter);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Cargo>> call, Throwable t) {
                 Toast.makeText(HomeActivity.this, "Ошибка загрузки моих грузов", Toast.LENGTH_SHORT).show();
