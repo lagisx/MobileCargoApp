@@ -3,21 +3,15 @@ package com.example.birgicargoappmobile.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Cargo {
-
-
     private Integer id;
-
     @SerializedName("ТипТС")
     private String vehicleType;
-
 
     @SerializedName("Вес")
     private double weight;
 
-
     @SerializedName("Объем")
     private double volume;
-
 
     @SerializedName("Товар")
     private String product;

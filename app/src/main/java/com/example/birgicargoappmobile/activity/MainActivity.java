@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         intent.putExtra("user_id", user.getId());
+                        intent.putExtra("user_login", user.getLogin());
                         startActivity(intent);
 
                         finish();

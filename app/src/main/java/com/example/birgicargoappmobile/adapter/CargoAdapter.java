@@ -49,7 +49,9 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
         holder.to.setText(cargo.getToLocation());
         holder.date.setText(cargo.getDates());
         holder.phone.setText(cargo.getContactPhone());
+
         holder.price.setText("₽ " + String.format("%.0f", cargo.getPriceByCard()));
+        holder.priceVat.setText("₽ НДС: " + String.format("%.0f", cargo.getPriceWithVat()));
 
         if (showDeleteButton && cargo.getCustomerId() == currentUserId) {
             holder.btnDelete.setVisibility(View.VISIBLE);
@@ -67,7 +69,7 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
     }
 
     static class CargoViewHolder extends RecyclerView.ViewHolder {
-        TextView title, id, description, from, to, date, phone, price;
+        TextView title, id, description, from, to, date, phone, price, priceVat;
         Button btnDelete;
         CargoViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +81,7 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
             date = itemView.findViewById(R.id.cargo_date);
             phone = itemView.findViewById(R.id.cargo_phone);
             price = itemView.findViewById(R.id.cargo_price);
+            priceVat = itemView.findViewById(R.id.cargo_price_vat);
             btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }

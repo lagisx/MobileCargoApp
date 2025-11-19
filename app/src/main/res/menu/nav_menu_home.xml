@@ -10,6 +10,9 @@
         <item
             android:id="@+id/nav_add_cargo"
             android:title="Добавить груз" />
+        <item
+            android:id="@+id/nav_profil_user"
+            android:title="Профиль"/>
     </group>
 
 </menu>

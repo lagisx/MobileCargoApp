@@ -15,12 +15,12 @@
         <ImageView
             android:id="@+id/nav_header_icon"
             android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/ic_user"
-            android:background="@drawable/avatar_circle_bg"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:elevation="4dp" />
+            android:background="@drawable/avatar_circle_bg"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_user" />
 
         <LinearLayout
             android:orientation="vertical"

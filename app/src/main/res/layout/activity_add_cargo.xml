@@ -182,29 +182,30 @@
                         android:id="@+id/et_price_by_card"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_field"
-                        android:hint="Цена по карте"
+                        android:hint="Цена наличными"
                         android:inputType="numberDecimal"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:textColor="@color/primary_text"
-                        android:textSize="16sp"
                         android:textColorHint="#99AEC5"
-                        android:layout_marginBottom="10dp"/>
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/et_price_with_vat"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:background="@drawable/bg_field"
-                        android:hint="Цена с НДС"
+                        android:hint="Цена с НДС (20%)"
                         android:inputType="numberDecimal"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:textColor="@color/primary_text"
-                        android:textSize="16sp"
                         android:textColorHint="#99AEC5"
-                        android:layout_marginBottom="10dp"/>
+                        android:textSize="16sp"
+                        android:focusable="false"
+                        android:enabled="false"/>
 
                     <EditText
                         android:id="@+id/et_bargain"

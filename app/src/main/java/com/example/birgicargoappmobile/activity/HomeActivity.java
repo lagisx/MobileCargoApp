@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +53,10 @@ public class HomeActivity extends AppCompatActivity {
         cargoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         currentUserId = getIntent().getIntExtra("user_id", -1);
+        String userLogin = getIntent().getStringExtra("user_login");
+        View headerView = navigationView.getHeaderView(0);
+        TextView navHeaderTitle = headerView.findViewById(R.id.nav_header_title);
+        navHeaderTitle.setText(userLogin != null && !userLogin.isEmpty() ? userLogin : "Гость");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://mkdwltdoayuhuikzycod.supabase.co/rest/v1/")
@@ -85,13 +90,17 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_add_cargo) {
                 Intent intent = new Intent(HomeActivity.this, AddCargoActivity.class);
                 intent.putExtra("user_id", currentUserId);
+                intent.putExtra("user_name", userLogin);
                 startActivityForResult(intent, 1);
-            }
+            } else if (id == R.id.nav_profil_user) {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                intent.putExtra("user_id", currentUserId);
+                startActivityForResult(intent, 2);
+        }
             drawerLayout.closeDrawers();
             return true;
         });
 
-        View headerView = navigationView.getHeaderView(0);
         Button btnLogout = headerView.findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(v -> {
             Toast.makeText(HomeActivity.this, "Вы вышли из системы", Toast.LENGTH_SHORT).show();
@@ -149,6 +158,15 @@ public class HomeActivity extends AppCompatActivity {
                 loadMyCargo();
             } else {
                 loadAllCargo();
+            }
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            String updatedLogin = data.getStringExtra("updated_login");
+            if (updatedLogin != null) {
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                View headerView = navigationView.getHeaderView(0);
+                TextView navHeaderTitle = headerView.findViewById(R.id.nav_header_title);
+                navHeaderTitle.setText(updatedLogin);
             }
         }
     }
